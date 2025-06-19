@@ -195,7 +195,11 @@ class EDA:
             return
 
         df = pd.read_csv(uploaded)
-
+        df = df.rename(columns={
+            "연도": "year",
+            "지역": "region",
+            "인구": "population"
+        })
         tabs = st.tabs([
             "1. 목적 & 절차",
             "2. 기초 통계",
