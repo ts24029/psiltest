@@ -252,7 +252,7 @@ class EDA:
             recent3   = df.query("연도 >= @last_year - 2")
 
             # 자연증가 = 출생 - 사망
-            recent3["net_inc"] = recent3["출생아수"] - recent3["사망자수"]
+            recent3["net_inc"] = recent3["출생아수(명)"] - recent3["사망자수(명)"]
             avg_net_inc = recent3["net_inc"].mean()
 
             # --- 4) 2035년 인구 예측 --------------------------------------------------------
