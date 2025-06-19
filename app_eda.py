@@ -46,7 +46,7 @@ class Home:
         if st.session_state.get("logged_in"):
             st.success(f"{st.session_state.get('user_email')}님 환영합니다.")
         st.tabs(
-        [1,2,3,4,5]
+        ["📋 기초 통계", "📈 연도별 추이", "📍 지역별 분석", "🔄 변화량 분석", "🎨 시각화"]
         )
 
 # ---------------------
@@ -218,7 +218,7 @@ class EDA:
             """)
 
         # 2. 기초 통계
-        with tabs[1]:
+        with tabs["📋 기초 통계"]:
             sejong_mask = df["지역"] == "세종"
             df.loc[sejong_mask] = df.loc[sejong_mask].replace("-", 0)
 
@@ -242,7 +242,7 @@ class EDA:
             st.text(buffer.getvalue())
 
         # 3. 연도별 추이
-        with tabs[2]:
+        with tabs["📈 연도별 추이"]:
             # --- 2) 전국(population) 필터링 -------------------------------------------------
             nation = df.query("지역 == '전국'").copy()
             nation = nation.sort_values("연도")          # 정렬(혹시 모를 뒤죽박죽 방지)
@@ -282,7 +282,7 @@ class EDA:
             )
 
         # 4. 지역별분석
-        with tabs[3]:
+        with tabs["📍 지역별 분석"]:
             df = df[df["region"] != "전국"]
             latest_year = df["year"].max()
             prev_year   = latest_year - 5
@@ -358,7 +358,7 @@ class EDA:
             )
 
         # 5. 변화량분석
-        with tabs[4]:
+        with tabs["🔄 변화량 분석"]:
             df_reg = df[df["지역"] != "전국"].copy()
             df_reg = df_reg.sort_values(["지역", "연도"])
 
@@ -393,7 +393,7 @@ class EDA:
             st.dataframe(styler, use_container_width=True)
 
         # 6. 시각화
-        with tabs[5]:
+        with tabs["🎨 시각화"]:
             k2e = {
                 "서울": "Seoul",
                 "부산": "Busan",
