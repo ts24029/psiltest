@@ -218,7 +218,7 @@ class EDA:
             """)
 
         # 2. 기초 통계
-        with tabs["📋 기초 통계"]:
+        with tabs[1]:
             sejong_mask = df["지역"] == "세종"
             df.loc[sejong_mask] = df.loc[sejong_mask].replace("-", 0)
 
