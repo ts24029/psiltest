@@ -282,12 +282,12 @@ class EDA:
 
         # 4. 지역별분석
         with tabs[3]:
-            df = df[df["region"] != "전국"]
+            df = df[df["지역"] != "전국"]
             latest_year = df["year"].max()
             prev_year   = latest_year - 5
 
-            latest_pop  = df[df["year"] == latest_year].set_index("region")["population"]
-            prev_pop    = df[df["year"] == prev_year ].set_index("region")["population"]
+            latest_pop  = df[df["year"] == latest_year].set_index("지역")["population"]
+            prev_pop    = df[df["year"] == prev_year ].set_index("지역")["population"]
 
             change      = (latest_pop - prev_pop).dropna()
             pct_change  = (change / prev_pop.loc[change.index] * 100).round(2)
