@@ -195,11 +195,6 @@ class EDA:
             return
 
         df = pd.read_csv(uploaded)
-        df = df.rename(columns={
-            "연도": "year",
-            "지역": "region",
-            "인구": "population"
-        })
         tabs = st.tabs([
             "1. 목적 & 절차",
             "2. 기초 통계",
@@ -223,7 +218,7 @@ class EDA:
 
         # 2. 기초 통계
         with tabs[1]:
-            sejong_mask = df["region"] == "세종"
+            sejong_mask = df["지역"] == "세종"
             df.loc[sejong_mask] = df.loc[sejong_mask].replace("-", 0)
 
             # 숫자형 컬럼 변환
@@ -248,7 +243,7 @@ class EDA:
         # 3. 연도별 추이
         with tabs[2]:
             # --- 2) 전국(population) 필터링 -------------------------------------------------
-            nation = df.query("region" == '전국').copy()
+            nation = df.query("지역 == '전국'").copy()
             nation = nation.sort_values("연도")          # 정렬(혹시 모를 뒤죽박죽 방지)
 
             # --- 3) 최근 3년 자연증가(출생-사망) 평균 ---------------------------------------
@@ -363,11 +358,11 @@ class EDA:
 
         # 5. 변화량분석
         with tabs[4]:
-            df_reg = df[df["region"] != "전국"].copy()
-            df_reg = df_reg.sort_values(["region", "연도"])
+            df_reg = df[df["지역"] != "전국"].copy()
+            df_reg = df_reg.sort_values(["지역", "연도"])
 
             # 2) 연속 연도 간 증감(diff) 계산
-            df_reg["증감"] = df_reg.groupby("region")["인구"].diff()
+            df_reg["증감"] = df_reg.groupby("지역")["인구"].diff()
 
             # 3) NaN(첫 해) 드랍 + 변화 폭 큰 순서로 TOP 100 뽑기
             df_change = df_reg.dropna(subset=["증감"])
