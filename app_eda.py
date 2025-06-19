@@ -286,8 +286,8 @@ class EDA:
             latest_year = df["연도"].max()
             prev_year   = latest_year - 5
 
-            latest_pop  = df[df["연도"] == latest_year].set_index("지역")["population"]
-            prev_pop    = df[df["연도"] == prev_year ].set_index("지역")["population"]
+            latest_pop  = df[df["연도"] == latest_year].set_index("지역")["인구"]
+            prev_pop    = df[df["연도"] == prev_year ].set_index("지역")["인구"]
 
             change      = (latest_pop - prev_pop).dropna()
             pct_change  = (change / prev_pop.loc[change.index] * 100).round(2)
